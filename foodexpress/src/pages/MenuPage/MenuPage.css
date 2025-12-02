@@ -1,0 +1,12 @@
+/* MenuPage Styles */
+
+.menu-page {
+  width: 100%;
+}
+
+.menu-content {
+  /* Ensure content doesn't hide behind navbar */
+  padding-top: 5px;
+}
+
+/* Additional menu page specific styles can be added here */

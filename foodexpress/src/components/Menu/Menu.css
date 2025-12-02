@@ -1,0 +1,244 @@
+/* ========================================
+   MENU CONTAINER
+   ======================================== */
+
+.menu-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 2rem auto;
+  padding: 0 2rem;
+  box-sizing: border-box;
+}
+
+.menu-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--primary-dark);
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+/* ========================================
+   FILTERS SECTION
+   ======================================== */
+
+.menu-filters {
+  margin-bottom: 2rem;
+}
+
+.menu-search-bar {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow);
+  margin-bottom: 1.5rem;
+}
+
+/* Wrapper for categories and sort */
+.menu-categories-wrapper {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.menu-categories {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.category-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  font-weight: 500;
+  background-color: var(--primary-light);
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.category-btn img {
+  width: 24px;
+  height: 24px;
+}
+
+.category-btn:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+}
+
+.category-btn.active {
+  background-color: var(--primary-orange);
+  color: white;
+  border-color: var(--primary-orange);
+}
+
+/* ========================================
+   ✅ NEW: SORT DROPDOWN
+   ======================================== */
+
+.menu-sort-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 0.5rem;
+}
+
+.menu-sort-select {
+  padding: 0.75rem 1.25rem;
+  border: 2px solid var(--border-color);
+  border-radius: 25px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, #ffffff, #f8f9fa);
+  color: var(--primary-dark);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  outline: none;
+}
+
+.menu-sort-select:hover {
+  border-color: var(--primary-orange);
+  background: linear-gradient(135deg, #fff5f0, #ffffff);
+  box-shadow: 0 4px 12px rgba(255, 107, 53, 0.15);
+}
+
+.menu-sort-select:focus {
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.1);
+}
+
+.menu-sort-select option {
+  padding: 0.5rem;
+  background: white;
+  color: var(--primary-dark);
+  color: var(--primary-dark);
+  background-color: white;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  min-width: 180px;
+
+  /* Custom dropdown arrow */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  background-size: 1.25rem;
+  padding-right: 2.5rem;
+}
+
+.menu-sort-select:hover {
+  border-color: #cbd5e1;
+}
+
+.menu-sort-select:focus {
+  outline: none;
+  border-color: var(--primary-orange);
+  box-shadow: 0 0 0 3px rgba(236, 122, 35, 0.1);
+}
+
+/* ========================================
+   FOOD GRID
+   ======================================== */
+
+.menu-food-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+}
+
+.menu-no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  font-size: 1.2rem;
+  color: #666;
+  padding: 2rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .menu-food-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-container {
+    padding: 0 1rem;
+  }
+
+  .menu-title {
+    font-size: 2rem;
+  }
+
+  .menu-food-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .menu-categories {
+    justify-content: flex-start;
+    overflow-x: auto;
+    padding-bottom: 0.5rem;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .menu-categories::-webkit-scrollbar {
+    display: none;
+  }
+
+  .menu-sort-container {
+    margin-top: 0.75rem;
+  }
+
+  .menu-sort-select {
+    padding: 0.625rem 1rem;
+    font-size: 0.85rem;
+    width: 200px;
+  }
+
+  /* ✅ Sort dropdown on mobile */
+  .menu-sort-container {
+    justify-content: stretch;
+    gap: 0.5rem;
+  }
+
+  .menu-sort-select {
+    flex: 1;
+    min-width: auto;
+  }
+
+  .sort-label {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .menu-food-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-sort-container {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .sort-label {
+    align-self: flex-start;
+  }
+
+  .menu-sort-select {
+    width: 100%;
+  }
+}

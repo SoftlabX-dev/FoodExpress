@@ -1,0 +1,206 @@
+/* Order Status Chart Styling */
+.order-status-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+/* Order Status Bars */
+.order-status-bars {
+  margin: 24px 0;
+}
+
+.status-row {
+  display: grid;
+  grid-template-columns: 150px 1fr 100px;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  padding: 12px;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+}
+
+.status-row:hover {
+  background: #f9fafb;
+  transform: translateX(4px);
+}
+
+.status-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.status-icon {
+  font-size: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+}
+
+/* Progress Bar */
+.progress-container {
+  height: 32px;
+  background: #f3f4f6;
+  border-radius: 8px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-bar {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 12px;
+  border-radius: 8px;
+  transition: width 0.6s ease;
+  position: relative;
+  min-width: 60px;
+}
+
+.progress-label {
+  color: white;
+  font-size: 12px;
+  font-weight: 700;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.status-count {
+  font-size: 16px;
+  font-weight: 700;
+  text-align: right;
+}
+
+/* Order Summary */
+.order-summary {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+  margin-top: 24px;
+}
+
+.summary-item {
+  text-align: center;
+}
+
+.summary-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.summary-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+  color: #1f2937;
+}
+
+.summary-value.success {
+  color: #10b981;
+}
+
+.summary-value.active {
+  color: #3b82f6;
+}
+
+.summary-divider {
+  width: 1px;
+  background: #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 968px) {
+  .status-row {
+    grid-template-columns: 130px 1fr 80px;
+    gap: 12px;
+  }
+
+  .status-name {
+    font-size: 13px;
+  }
+
+  .status-count {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 768px) {
+  .order-status-card {
+    padding: 16px;
+  }
+
+  .status-row {
+    grid-template-columns: 120px 1fr 70px;
+    gap: 10px;
+    padding: 10px;
+    margin-bottom: 12px;
+  }
+
+  .status-icon {
+    font-size: 16px;
+  }
+
+  .status-name {
+    font-size: 12px;
+  }
+
+  .progress-container {
+    height: 28px;
+  }
+
+  .progress-label {
+    font-size: 11px;
+  }
+
+  .status-count {
+    font-size: 13px;
+  }
+
+  .order-summary {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .summary-divider {
+    display: none;
+  }
+
+  .summary-value {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .status-row {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .status-label {
+    justify-content: space-between;
+  }
+
+  .status-count {
+    position: absolute;
+    right: 12px;
+  }
+
+  .progress-container {
+    grid-column: 1;
+  }
+}

@@ -1,0 +1,169 @@
+/* Revenue Trends Chart Styling */
+.revenue-trends-card {
+  background: white;
+  padding: 24px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+.chart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header-left {
+  flex: 1;
+}
+
+.chart-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1f2937;
+  margin: 0 0 4px 0;
+}
+
+.chart-subtitle {
+  font-size: 14px;
+  color: #6b7280;
+  margin: 0;
+}
+
+.period-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f9fafb;
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid #e5e7eb;
+}
+
+.calendar-icon {
+  color: #ff7a00;
+  font-size: 16px;
+}
+
+.period-select {
+  border: none;
+  background: transparent;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1f2937;
+  cursor: pointer;
+  outline: none;
+  padding: 4px 8px;
+}
+
+.period-select:focus {
+  outline: none;
+}
+
+.chart-container {
+  height: 300px;
+  margin-bottom: 24px;
+  position: relative;
+}
+
+/* Stats Below Chart */
+.chart-stats {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr;
+  gap: 16px;
+  padding-top: 24px;
+  border-top: 1px solid #e5e7eb;
+}
+
+.stat-item {
+  text-align: center;
+}
+
+.stat-label {
+  font-size: 13px;
+  color: #6b7280;
+  margin: 0 0 8px 0;
+  font-weight: 500;
+}
+
+.stat-value {
+  font-size: 24px;
+  font-weight: 700;
+  margin: 0;
+}
+
+.stat-value.total {
+  color: #ff7a00;
+}
+
+.stat-value.average {
+  color: #3b82f6;
+}
+
+.stat-value.trend {
+  color: #10b981;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+.trend-icon {
+  font-size: 18px;
+}
+
+.stat-divider {
+  width: 1px;
+  background: #e5e7eb;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .revenue-trends-card {
+    padding: 16px;
+  }
+
+  .chart-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .chart-title {
+    font-size: 18px;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+
+  .chart-stats {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .stat-divider {
+    display: none;
+  }
+
+  .stat-value {
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .chart-container {
+    height: 200px;
+  }
+
+  .period-selector {
+    width: 100%;
+  }
+
+  .period-select {
+    flex: 1;
+  }
+}

@@ -1,0 +1,44 @@
+:root {
+  --primary-orange: #F97316;
+  --primary-dark: #1e293b;
+  --primary-light: #f8fafc;
+  --border-color: #e2e8f0;
+  --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
+  --navbar-height: 80px; /* The height of our navbar */
+}
+
+/* --- Global Body & Box-Sizing --- */
+body {
+  font-family: 'Inter', sans-serif;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--primary-light);
+  color: var(--primary-dark);
+  height: 100%; /* Make sure the app can fill the height */
+}
+
+/* Enables smooth scrolling when clicking Navbar links */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Universal box-sizing reset */
+* {
+  box-sizing: border-box;
+}
+
+
+    /* *** NEW (Line 118-122) *** */
+    .app-container {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh; /* This is the magic! */
+    }
+
+    main {
+      /* Prevents content from being hidden by the sticky navbar */
+      padding-top: var(--navbar-height);
+      flex-grow: 1; /* *** NEW (Line 124) *** This is the 2nd magic part */
+    }
+    

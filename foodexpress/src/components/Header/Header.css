@@ -1,0 +1,81 @@
+.header-container {
+  width: 100%;
+ /*padding-top: var(--navbar-height); /* Ensures it starts *below* the sticky navbar */
+  box-sizing: border-box;
+  
+}
+
+.header-banner {
+  /* --- Core Layout --- */
+  width: 100%;
+  height: 650px; /* You can adjust this height */
+  position: relative; /* This is crucial for positioning the button */
+  
+  /* --- Background Image Styling --- */
+  background-image: url('../../assets/images/banner-offer.png'); /* Fallback */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.header-order-btn {
+  /* --- Positioning --- */
+  /* We use absolute positioning to place it on top of the image */
+  
+  position: absolute;
+  
+  /* These values are tuned to match your screenshot. 
+    You may need to adjust them slightly.
+  */
+  left: 5%; 
+  bottom: 15%;
+  transform: translateY(50%); /* Fine-tunes vertical alignment */
+
+  /* --- Styling --- */
+  /* These styles are copied from your screenshot's button */
+  /*background-color: rgba(142, 114, 84, 0.85); 
+  color: white;
+  font-family: 'Inter', sans-serif;
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding: 0.75rem 1.75rem;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);*/
+  background-color: var(--primary-orange);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 1.5rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+      transition: all 0.3s ease;
+}
+
+.header-order-btn:hover {
+  background-color: #f97316c0;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+  transform: translateY(50%) scale(1.02); /* Slight grow effect */
+}
+
+/* --- Responsive (Mobile) --- */
+@media screen and (max-width: 768px) {
+  .header-banner {
+    height: 350px; /* Shorter banner for mobile */
+    background-position: 60% center; /* Focuses more on the food */
+  }
+
+  .header-order-btn {
+    left: 50%;
+    bottom: 10%;
+    transform: translateX(-50%); /* Centers the button on mobile */
+    width: 80%;
+    max-width: 300px;
+    padding: 1rem;
+    font-size: 1.2rem;
+  }
+}

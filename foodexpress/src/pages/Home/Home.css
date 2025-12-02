@@ -1,0 +1,15 @@
+/* This is the magic to make sure your page content
+  doesn't hide behind the sticky navbar.
+  
+  It uses the --navbar-height variable that we
+  defined in our root styles (or Navbar.css).
+*/
+.home-content {
+  /* We assume --navbar-height is 80px as we defined in Navbar.css
+    If Navbar.css isn't loaded, you can hard-code it:
+    padding-top: 80px;
+  */
+  padding-top: 5px;
+}
+
+/*var(--navbar-height);*/

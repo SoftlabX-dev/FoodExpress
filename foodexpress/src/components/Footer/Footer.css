@@ -1,0 +1,150 @@
+footer {
+  background-color: #111827; /* Dark background */
+  color: #d1d5db; /* Light gray text */
+  padding: 3rem 2rem 2rem 2rem;
+  margin-top: 3rem;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 2rem;
+  padding-bottom: 3rem;
+}
+
+.footer-column h4 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: white;
+  margin-top: 0;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.footer-column h4::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-orange);
+}
+
+/* *** NEW: Style for your logo image *** */
+.footer-logo-img {
+  height: 70px; /* Control the logo size */
+  width: 240px;
+  margin-bottom: 0rem;
+  /* This CSS filter makes your orange logo WHITE */
+  filter: brightness(0) invert(1);
+}
+
+.footer-about p {
+  font-size: 1rem;
+  line-height: 1.6;
+  max-width: 300px;
+  color: #cbd5e1;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 0.75rem;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #e2e8f0;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: var(--primary-orange);
+}
+
+.footer-socials {
+  display: flex;
+  gap: 1rem;
+}
+
+/* *** NEW: Style for your social icon images *** */
+.social-icon-img {
+  /* You can change this size, and it will apply to all icons */
+  width: 30px;  
+  height: 30px; 
+  
+  /* *** This is the magic line that prevents stretching! *** */
+  object-fit: contain; 
+  
+  transition: all 0.3s ease;
+  /* This CSS filter makes your social icons WHITE */
+  filter: brightness(0) invert(0.8);
+  cursor: pointer;
+}
+
+/* *** NEW: Hover effect for your social icons *** */
+.social-icon-img:hover {
+  /* This makes them ORANGE on hover */
+  filter: invert(55%) sepia(87%) saturate(1611%) hue-rotate(359deg) brightness(101%) contrast(97%);
+  transform: scale(1.1);
+}
+
+.footer-bottom {
+  border-top: 1px solid #334155;
+  padding: 1.5rem 0;
+  text-align: center;
+}
+
+.footer-bottom p {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #94a3b8;
+}
+
+/* --- Responsive (Tablet & Mobile) --- */
+@media (max-width: 900px) {
+  .footer-container {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .footer-about {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 500px) {
+  .footer-container {
+    grid-template-columns: 1fr;
+  }
+
+  .footer {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+  
+  /* *** NEW: Center align on mobile *** */
+  .footer-column {
+    text-align: center;
+  }
+  .footer-about p {
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .footer-socials {
+    justify-content: center;
+  }
+  .footer-column h4::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
