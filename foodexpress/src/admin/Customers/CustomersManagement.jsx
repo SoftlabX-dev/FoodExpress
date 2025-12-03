@@ -219,6 +219,44 @@ const CustomersManagement = () => {
         return "#CD7F32";
     }
   };
+
+  // Helper function to get initials from name
+  const getInitials = (name) => {
+    if (!name) return "?";
+    const parts = name.trim().split(" ");
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[1][0]).toUpperCase();
+    }
+    return parts[0][0].toUpperCase();
+  };
+
+  // Helper function to format amount without commas and proper decimals
+  const formatAmount = (amount) => {
+    if (!amount && amount !== 0) return "0";
+    const num = parseFloat(amount);
+    if (isNaN(num)) return "0";
+
+    // If integer, return without decimals
+    if (Number.isInteger(num)) {
+      return num.toString();
+    }
+
+    // Convert to string and remove trailing zeros
+    const str = num.toFixed(2);
+    const parts = str.split(".");
+
+    // Remove trailing zeros after decimal point
+    if (parts[1]) {
+      parts[1] = parts[1].replace(/0+$/, "");
+      if (parts[1] === "") {
+        return parts[0];
+      }
+      return parts.join(".");
+    }
+
+    return parts[0];
+  };
+
   {
     loading && <p>Loading chart...</p>;
   }
@@ -325,14 +363,6 @@ const CustomersManagement = () => {
                 </div>
               </div>
               <div className="header-actions">
-                <button className="header-btn export-btn">
-                  <FaDownload />
-                  Export Data
-                </button>
-                <button className="header-btn import-btn">
-                  <FaUpload />
-                  Import
-                </button>
                 <button
                   className="header-btn add-btn"
                   onClick={() => setShowAddModal(true)}
@@ -382,18 +412,6 @@ const CustomersManagement = () => {
                 </span>
               </div>
             </div>
-            <div className="stat-card loyalty">
-              <div className="stat-icon">
-                <FaCrown />
-              </div>
-              <div className="stat-info">
-                <span className="stat-label">VIP Members</span>
-                <span className="stat-value">4</span>
-                <span className="stat-change">
-                  <FaHeart /> Gold & Platinum
-                </span>
-              </div>
-            </div>
           </div>
 
           {/* Status Tabs */}
@@ -439,19 +457,26 @@ const CustomersManagement = () => {
 
           {/* Toolbar */}
           <div className="customers-toolbar">
-            <div className="search-box">
-              <FaSearch />
-              <input
-                type="text"
-                placeholder="Search by name, email, or phone..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+            <div className="modern-search-container">
+              <div className="modern-search-box">
+                <FaSearch className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="🔍 Search by name, email, or phone..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="modern-search-input"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm("")}
+                    className="clear-search-btn"
+                  >
+                    <FaTimes />
+                  </button>
+                )}
+              </div>
             </div>
-            <button className="toolbar-btn">
-              <FaFilter />
-              Advanced Filters
-            </button>
           </div>
 
           {/* Customers Table */}
@@ -474,11 +499,9 @@ const CustomersManagement = () => {
                   <tr key={customer.id}>
                     <td>
                       <div className="customer-info">
-                        <img
-                          src={customer.avatar}
-                          alt={customer.name}
-                          className="customer-avatar"
-                        />
+                        <div className="customer-avatar">
+                          {getInitials(customer.name)}
+                        </div>
                         <div className="customer-details">
                           <span className="customer-name">{customer.name}</span>
                           <span className="customer-id">
@@ -524,7 +547,7 @@ const CustomersManagement = () => {
                     </td>
                     <td>
                       <span className="amount">
-                        {customer?.totalSpent.toLocaleString()} $
+                        {formatAmount(customer?.totalSpent)} $
                       </span>
                     </td>
                     <td>

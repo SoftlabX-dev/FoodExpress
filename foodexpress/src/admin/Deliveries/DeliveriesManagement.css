@@ -456,39 +456,63 @@
   border-color: #3b82f6;
 }
 
-/* Search */
-.search-section {
+/* Modern Search Bar */
+.modern-search-container {
   margin-bottom: 24px;
 }
 
-.search-box {
+.modern-search-box {
   position: relative;
-  width: 100%;
+  display: flex;
+  align-items: center;
+  background: white;
+  border: 2px solid #e5e7eb;
+  border-radius: 16px;
+  padding: 14px 20px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+}
+
+.modern-search-box:focus-within {
+  border-color: #ff7a00;
+  box-shadow: 0 4px 16px rgba(255, 122, 0, 0.1);
 }
 
 .search-icon {
-  position: absolute;
-  left: 16px;
-  top: 50%;
-  transform: translateY(-50%);
   color: #9ca3af;
-  font-size: 18px;
+  flex-shrink: 0;
+  margin-right: 12px;
 }
 
-.search-box input {
-  width: 100%;
-  padding: 14px 16px 14px 48px;
-  border: 2px solid #e5e7eb;
-  border-radius: 10px;
-  font-size: 15px;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.search-box input:focus {
+.modern-search-input {
+  flex: 1;
+  border: none;
   outline: none;
-  border-color: #3b82f6;
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  font-size: 15px;
+  color: #1f2937;
+  background: transparent;
+}
+
+.modern-search-input::placeholder {
+  color: #9ca3af;
+}
+
+.clear-search-btn {
+  background: transparent;
+  border: none;
+  color: #9ca3af;
+  cursor: pointer;
+  padding: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.clear-search-btn:hover {
+  background: #f3f4f6;
+  color: #6b7280;
 }
 
 /* Deliveries Table */
@@ -635,6 +659,32 @@
   color: #9ca3af;
   font-size: 13px;
   font-style: italic;
+}
+
+.assign-driver-btn {
+  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(249, 115, 22, 0.2);
+}
+
+.assign-driver-btn:hover {
+  background: linear-gradient(135deg, #ea580c 0%, #dc2626 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(249, 115, 22, 0.3);
+}
+
+.assign-driver-btn:active {
+  transform: translateY(0);
 }
 
 /* Table Actions */

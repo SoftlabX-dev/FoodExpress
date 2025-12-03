@@ -519,33 +519,25 @@ const DeliveriesManagement = () => {
             </div>
           </div>
 
-          {/* Filter Tabs */}
-          <div className="priority-filters">
-            {["All Orders", "High", "Normal"].map((filter) => (
-              <button
-                key={filter}
-                onClick={() => setPriorityFilter(filter)}
-                className={`filter-btn ${
-                  priorityFilter === filter ? "active" : ""
-                }`}
-              >
-                {filter === "High" && "🔴"}
-                {filter === "Normal" && "🟡"}
-                {filter}
-              </button>
-            ))}
-          </div>
-
-          {/* Search */}
-          <div className="search-section">
-            <div className="search-box">
+          {/* Modern Search Bar */}
+          <div className="modern-search-container">
+            <div className="modern-search-box">
               <FaSearch className="search-icon" />
               <input
                 type="text"
-                placeholder="Search by order ID, customer, phone, or address..."
+                placeholder="🔍 Search by order ID, customer, phone, or address..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                className="modern-search-input"
               />
+              {searchQuery && (
+                <button
+                  onClick={() => setSearchQuery("")}
+                  className="clear-search-btn"
+                >
+                  <FaTimes />
+                </button>
+              )}
             </div>
           </div>
 
@@ -559,7 +551,6 @@ const DeliveriesManagement = () => {
                   <th>Customer</th>
                   <th>Address</th>
                   <th>Amount</th>
-                  <th>Priority</th>
                   <th>Status</th>
                   <th>Assigned Driver</th>
                   <th>Actions</th>
@@ -612,18 +603,6 @@ const DeliveriesManagement = () => {
                           <td className="amount-value">{order.amount}</td>
                           <td>
                             <span
-                              className="priority-badge"
-                              style={{
-                                backgroundColor: priorityColor.bg,
-                                color: priorityColor.text,
-                              }}
-                            >
-                              {order.priority === "High" ? "🔴" : "🟡"}{" "}
-                              {order.priority}
-                            </span>
-                          </td>
-                          <td>
-                            <span
                               className="status-badge"
                               style={{
                                 backgroundColor: statusColor.bg,
@@ -647,7 +626,13 @@ const DeliveriesManagement = () => {
                                 </span>
                               </div>
                             ) : (
-                              <span className="not-assigned">Not assigned</span>
+                              <button
+                                onClick={() => openAssignModal(order.id)}
+                                className="assign-driver-btn"
+                                title="Assign Driver"
+                              >
+                                <FaTruck /> Assign Driver
+                              </button>
                             )}
                           </td>
                           <td>
@@ -657,60 +642,14 @@ const DeliveriesManagement = () => {
                                 className="action-btn call-btn"
                                 title="Call customer"
                               >
-                                <FaPhone />
+                                📞
                               </button>
-                              <div className="action-menu-wrapper">
-                                <button
-                                  onClick={() =>
-                                    setOpenMenu(
-                                      openMenu === order.id ? null : order.id
-                                    )
-                                  }
-                                  className="action-btn menu-btn"
-                                >
-                                  ⋮
-                                </button>
-                                {openMenu === order.id && (
-                                  <div className="action-dropdown">
-                                    {!order.assignedDriver ? (
-                                      <button
-                                        onClick={() =>
-                                          openAssignModal(order.id)
-                                        }
-                                        className="dropdown-item assign"
-                                      >
-                                        <FaTruck /> Assign Driver
-                                      </button>
-                                    ) : (
-                                      <>
-                                        <button
-                                          onClick={() =>
-                                            handleCompleteDelivery(order.id)
-                                          }
-                                          className="dropdown-item complete"
-                                        >
-                                          <FaCheck /> Complete Delivery
-                                        </button>
-                                        <button
-                                          onClick={() =>
-                                            handleCancelDelivery(order.id)
-                                          }
-                                          className="dropdown-item reassign"
-                                        >
-                                          <FaExclamationCircle /> Reassign
-                                          Driver
-                                        </button>
-                                      </>
-                                    )}
-                                  </div>
-                                )}
-                              </div>
                             </div>
                           </td>
                         </tr>
                         {expandedOrder === order.id && (
                           <tr className="expanded-row">
-                            <td colSpan="9">
+                            <td colSpan="8">
                               <div className="expanded-content">
                                 <div className="expanded-section">
                                   <p className="section-title">📞 Contact</p>
@@ -743,7 +682,7 @@ const DeliveriesManagement = () => {
                   })
                 ) : (
                   <tr>
-                    <td colSpan="9" className="no-data">
+                    <td colSpan="8" className="no-data">
                       No pending orders found
                     </td>
                   </tr>

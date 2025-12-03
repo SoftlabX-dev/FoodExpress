@@ -4,10 +4,8 @@ import {
   FaUtensils,
   FaSearch,
   FaPlus,
-  FaEdit,
   FaTimes,
   FaCheck,
-  FaBan,
   FaFire,
   FaStar,
   FaShoppingBag,
@@ -18,6 +16,7 @@ import {
   FaFileAlt,
   FaBars,
 } from "react-icons/fa";
+import { MdEdit, MdRemoveShoppingCart } from "react-icons/md";
 import "./MenuManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -336,17 +335,6 @@ const MenuManagement = () => {
       </div>
 
       <div className="main-content">
-        <header className="top-header">
-          <h1 className="header-title">FoodExpress</h1>
-          <div className="header-user-section">
-            <div className="header-user-info">
-              <p className="header-user-name">Admin</p>
-              <p className="header-user-role">Manager</p>
-            </div>
-            <div className="header-user-avatar">A</div>
-          </div>
-        </header>
-
         <div className="menu-management">
           <div className="menu-header">
             <div className="header-content">
@@ -479,10 +467,12 @@ const MenuManagement = () => {
                         onClick={() => handleEditItem(item)}
                         title="Edit Item"
                       >
-                        <FaEdit />
+                        <MdEdit />
                       </button>
                       <button
-                        className="action-btn outofstock-btn"
+                        className={`action-btn outofstock-btn ${
+                          !item.isAvailable ? "marked-unavailable" : ""
+                        }`}
                         onClick={() => handleToggleAvailability(item.id)}
                         title={
                           item.isAvailable
@@ -490,7 +480,11 @@ const MenuManagement = () => {
                             : "Mark Available"
                         }
                       >
-                        <FaBan />
+                        {item.isAvailable ? (
+                          <MdRemoveShoppingCart />
+                        ) : (
+                          <FaCheck />
+                        )}
                       </button>
                     </div>
                   </div>

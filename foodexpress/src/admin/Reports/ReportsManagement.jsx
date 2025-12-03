@@ -311,9 +311,6 @@ const ReportsManagement = () => {
                 </p>
               </div>
             </div>
-            <button className="export-btn">
-              <FaDownload /> Export Reports
-            </button>
           </div>
           {/* Stats Cards */}
           <div className="stats-cards">
@@ -354,46 +351,27 @@ const ReportsManagement = () => {
               </div>
             </div>
           </div>
-          {/* KPIs avancés */}
-          <div className="stats-cards" style={{ marginTop: "1rem" }}>
-            <div className="stat-card">
-              <div className="stat-icon" style={{ backgroundColor: "#8b5cf6" }}>
-                <FaClock />
-              </div>
-              <div className="stat-info">
-                <p className="stat-label">Temps Moyen Résolution</p>
-                <h3 className="stat-value">{kpis.avg_resolution_time}h</h3>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon" style={{ backgroundColor: "#10b981" }}>
-                <FaChartLine />
-              </div>
-              <div className="stat-info">
-                <p className="stat-label">Taux de Résolution</p>
-                <h3 className="stat-value">{kpis.resolution_rate}%</h3>
-              </div>
-            </div>
-            <div className="stat-card">
-              <div className="stat-icon" style={{ backgroundColor: "#ef4444" }}>
-                <FaExclamationCircle />
-              </div>
-              <div className="stat-info">
-                <p className="stat-label">Reports en Retard</p>
-                <h3 className="stat-value">{kpis.overdue_reports}</h3>
-              </div>
-            </div>
-          </div>
           {/* Filters */}
           <div className="filters-section">
-            <div className="search-box">
-              <FaSearch className="search-icon" />
-              <input
-                type="text"
-                placeholder="Search by name, email, subject..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-              />
+            <div className="modern-search-container">
+              <div className="modern-search-box">
+                <FaSearch className="search-icon" />
+                <input
+                  type="text"
+                  placeholder="🔍 Search by name, email, subject..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="modern-search-input"
+                />
+                {searchTerm && (
+                  <button
+                    onClick={() => setSearchTerm("")}
+                    className="clear-search-btn"
+                  >
+                    <FaTimes />
+                  </button>
+                )}
+              </div>
             </div>
             <div className="filter-buttons">
               <button
