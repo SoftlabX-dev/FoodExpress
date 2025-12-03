@@ -47,7 +47,7 @@ const CustomersManagement = () => {
   const [showAddModal, setShowAddModal] = useState(false);
   const [selectedCustomer, setSelectedCustomer] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const customersPerPage = 8;
+  const customersPerPage = 999999; // Show all customers
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const location = useLocation();
   const [customers, setcustomers] = useState([]);
@@ -328,24 +328,6 @@ const CustomersManagement = () => {
 
       {/* MAIN CONTENT */}
       <div className="main-content">
-        {/* TOP HEADER */}
-        <header className="top-header">
-          {/* Left Side - Brand Name */}
-          <h1 className="header-title">FoodExpress</h1>
-
-          {/* Right Side - User Section */}
-          <div className="header-user-section">
-            {/* User Info */}
-            <div className="header-user-info">
-              <p className="header-user-name">Admin</p>
-              <p className="header-user-role">Manager</p>
-            </div>
-
-            {/* Avatar Circle */}
-            <div className="header-user-avatar">A</div>
-          </div>
-        </header>
-
         {/* PAGE CONTENT */}
         <div className="customers-management">
           {/* Header */}

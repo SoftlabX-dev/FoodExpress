@@ -425,18 +425,6 @@ const DeliveriesManagement = () => {
 
       {/* MAIN CONTENT */}
       <div className="main-content">
-        {/* TOP HEADER */}
-        <header className="top-header">
-          <h1 className="header-title">FoodExpress</h1>
-          <div className="header-user-section">
-            <div className="header-user-info">
-              <p className="header-user-name">Admin</p>
-              <p className="header-user-role">Manager</p>
-            </div>
-            <div className="header-user-avatar">A</div>
-          </div>
-        </header>
-
         {/* PAGE CONTENT */}
         <div className="deliveries-management">
           {/* Error Message */}

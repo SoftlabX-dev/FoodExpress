@@ -581,6 +581,8 @@
   padding: 16px;
   color: #4b5563;
   font-size: 14px;
+  text-align: center;
+  vertical-align: middle;
 }
 
 .expand-btn {

@@ -10,7 +10,6 @@ import {
   FaMotorcycle,
   FaFileAlt,
   FaShoppingBag,
-  FaPhone,
   FaTrash,
   FaPlus,
   FaSearch,
@@ -19,6 +18,7 @@ import {
   FaChevronUp,
   FaEdit,
 } from "react-icons/fa";
+import { Phone } from "lucide-react";
 import "./DriversManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -378,18 +378,6 @@ const DriversManagement = () => {
 
       {/* MAIN CONTENT */}
       <div className="main-content">
-        {/* TOP HEADER */}
-        <header className="top-header">
-          <h1 className="header-title">FoodExpress</h1>
-          <div className="header-user-section">
-            <div className="header-user-info">
-              <p className="header-user-name">Admin</p>
-              <p className="header-user-role">Manager</p>
-            </div>
-            <div className="header-user-avatar">A</div>
-          </div>
-        </header>
-
         {/* PAGE CONTENT */}
         <div className="drivers-management">
           {/* Banner Section */}
@@ -400,9 +388,7 @@ const DriversManagement = () => {
               </div>
               <div>
                 <h2 className="banner-title">Manage Your Delivery Drivers</h2>
-                <p className="banner-subtitle">
-                  Track performance, status, and earnings
-                </p>
+                <p className="banner-subtitle">Track performance and status</p>
               </div>
             </div>
             <button
@@ -492,7 +478,6 @@ const DriversManagement = () => {
                   <th>Vehicle</th>
                   <th>Deliveries</th>
                   <th>Rating</th>
-                  <th>Earnings</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -520,7 +505,8 @@ const DriversManagement = () => {
                         <td>
                           <div className="driver-info">
                             <div className="driver-avatar">
-                              {driver.initials}
+                              {driver.name?.charAt(0).toUpperCase() ||
+                                driver.initials}
                             </div>
                             <div className="driver-details">
                               <p className="driver-name">{driver.name}</p>
@@ -564,9 +550,6 @@ const DriversManagement = () => {
                             </span>
                           </div>
                         </td>
-                        <td className="earnings-value">
-                          {driver.total_earnings} $
-                        </td>
                         <td>
                           <div className="table-actions">
                             <button
@@ -574,7 +557,7 @@ const DriversManagement = () => {
                               className="action-btn call-btn"
                               title="Call driver"
                             >
-                              <FaPhone />
+                              📞
                             </button>
                             <div className="action-menu-wrapper">
                               <button
@@ -640,7 +623,7 @@ const DriversManagement = () => {
                       </tr>
                       {expandedRow === driver.id && (
                         <tr className="expanded-row">
-                          <td colSpan="8">
+                          <td colSpan="7">
                             <div className="expanded-content">
                               <div className="expanded-section">
                                 <p className="section-title">📍 Contact Info</p>
@@ -662,11 +645,10 @@ const DriversManagement = () => {
                                 </p>
                               </div>
                               <div className="expanded-section">
-                                <p className="section-title">💰 Financial</p>
-                                <p className="section-value earnings">
-                                  {driver.total_earnings} $
+                                <p className="section-title">
+                                  🚚 Current Status
                                 </p>
-                                <p className="section-detail">
+                                <p className="section-value">
                                   Current deliveries:{" "}
                                   {driver.current_deliveries}
                                 </p>
@@ -679,7 +661,7 @@ const DriversManagement = () => {
                   ))
                 ) : (
                   <tr>
-                    <td colSpan="8" className="no-data">
+                    <td colSpan="7" className="no-data">
                       No drivers found
                     </td>
                   </tr>

@@ -66,7 +66,6 @@ const OrderStatusChart = () => {
             <option value="1day">Today</option>
             <option value="7days">Last 7 Days</option>
             <option value="30days">Last 30 Days</option>
-            <option value="1year">Last Year</option>
           </select>
         </div>
       </div>

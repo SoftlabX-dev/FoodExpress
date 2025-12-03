@@ -602,16 +602,17 @@
 }
 
 .reporter-avatar {
-  width: 40px;
-  height: 40px;
-  background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
-  color: white;
-  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #ff7a00, #ff9500);
   display: flex;
   align-items: center;
   justify-content: center;
+  color: white;
+  font-size: 14px;
   font-weight: 700;
-  font-size: 16px;
+  flex-shrink: 0;
 }
 
 .reporter-name {
