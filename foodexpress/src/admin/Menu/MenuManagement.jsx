@@ -16,7 +16,7 @@ import {
   FaFileAlt,
   FaBars,
 } from "react-icons/fa";
-import { MdEdit, MdRemoveShoppingCart } from "react-icons/md";
+import { SquarePen, CircleOff, BadgeCheck } from "lucide-react";
 import "./MenuManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -461,31 +461,28 @@ const MenuManagement = () => {
                       <span className="current-price">{item.price} $</span>
                     </div>
 
-                    <div className="item-actions">
-                      <button
-                        className="action-btn edit-btn"
+                    <div className="item-actions flex items-center gap-3">
+                      <SquarePen
+                        size={20}
+                        className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer transition-colors"
                         onClick={() => handleEditItem(item)}
                         title="Edit Item"
-                      >
-                        <MdEdit />
-                      </button>
-                      <button
-                        className={`action-btn outofstock-btn ${
-                          !item.isAvailable ? "marked-unavailable" : ""
-                        }`}
-                        onClick={() => handleToggleAvailability(item.id)}
-                        title={
-                          item.isAvailable
-                            ? "Mark Out of Stock"
-                            : "Mark Available"
-                        }
-                      >
-                        {item.isAvailable ? (
-                          <MdRemoveShoppingCart />
-                        ) : (
-                          <FaCheck />
-                        )}
-                      </button>
+                      />
+                      {item.isAvailable ? (
+                        <CircleOff
+                          size={20}
+                          className="w-5 h-5 text-red-500 hover:text-red-600 cursor-pointer transition-colors"
+                          onClick={() => handleToggleAvailability(item.id)}
+                          title="Mark Out of Stock"
+                        />
+                      ) : (
+                        <BadgeCheck
+                          size={20}
+                          className="w-5 h-5 text-green-500 hover:text-green-600 cursor-pointer transition-colors"
+                          onClick={() => handleToggleAvailability(item.id)}
+                          title="Mark Available"
+                        />
+                      )}
                     </div>
                   </div>
                 </div>

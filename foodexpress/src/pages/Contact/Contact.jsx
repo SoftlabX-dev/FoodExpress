@@ -122,7 +122,7 @@ const Contact = () => {
     }));
   };
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     // Simulate form submission
@@ -136,15 +136,15 @@ const Contact = () => {
       message: "",
     });
 
-   try {
-    const res = await ClientApi.report(formData);
-   } catch (error) {
-    console.log(error);
-   }
-     
+    try {
+      const res = await ClientApi.report(formData);
+    } catch (error) {
+      console.log(error);
+    }
+
     // Show success message
     setShowSuccess(true);
-   
+
     // Hide success message after 5 seconds
     setTimeout(() => {
       setShowSuccess(false);
@@ -426,13 +426,7 @@ const Contact = () => {
 
               {/* Map Section */}
               <div className="map-section">
-                <h3 className="map-title">Our Location</h3>
                 <div className="map-container">
-                  <img
-                    src="https://images.unsplash.com/photo-1577415124269-fc1140a69e91?w=400&h=300&fit=crop&crop=center"
-                    alt="FoodExpress Restaurant Location"
-                    className="map-placeholder"
-                  />
                   <div className="map-overlay">
                     <div className="map-pin">📍</div>
                     <p className="map-text">FoodExpress Restaurant</p>

@@ -37,6 +37,7 @@ import {
   FaTrashAlt,
   FaUserLock,
 } from "react-icons/fa";
+import { SquarePen } from "lucide-react";
 import "./CustomersManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -143,16 +144,16 @@ const CustomersManagement = () => {
   const filteredCustomers = useMemo(() => {
     return customers.filter((customer) => {
       const matchesSearch =
-        customer.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        customer.phone.includes(searchTerm);
+        customer.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        customer.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        (customer.phone && customer.phone.includes(searchTerm));
 
       const matchesStatus =
         statusFilter === "all" || customer.status === statusFilter;
 
       return matchesSearch && matchesStatus;
     });
-  }, [searchTerm, statusFilter]);
+  }, [customers, searchTerm, statusFilter]);
 
   // Status counts
   const statusCounts = {
@@ -543,25 +544,12 @@ const CustomersManagement = () => {
                     </td>
                     <td>
                       <div className="table-actions">
-                        <button
-                          className="action-btn view-btn"
+                        <SquarePen
+                          size={20}
+                          className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer transition-colors"
                           onClick={() => handleViewCustomer(customer)}
                           title="View Details"
-                        >
-                          <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            width="20"
-                            height="20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm8.706-1.442c1.146-.573 2.437.463 2.126 1.706l-.709 2.836.042-.02a.75.75 0 01.67 1.34l-.04.022c-1.147.573-2.438-.463-2.127-1.706l.71-2.836-.042.02a.75.75 0 11-.671-1.34l.041-.022zM12 9a.75.75 0 100-1.5.75.75 0 000 1.5z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </button>
+                        />
                       </div>
                     </td>
                   </tr>
@@ -615,35 +603,18 @@ const CustomersManagement = () => {
                 <div className="modal-body">
                   <div className="customer-profile">
                     <div className="profile-header">
-                      <img
-                        src={selectedCustomer.avatar}
-                        alt={selectedCustomer.name}
-                        className="profile-avatar"
-                      />
+                      <div className="customer-avatar">
+                        {selectedCustomer.name.charAt(0).toUpperCase()}
+                      </div>
                       <div className="profile-info">
                         <h3>{selectedCustomer.name}</h3>
-                        <div
-                          className="profile-tier"
-                          style={{ color: getTierColor(selectedCustomer.tier) }}
+                        <span
+                          className={`status-badge ${selectedCustomer.status}`}
                         >
-                          {getTierIcon(selectedCustomer.tier)}
-                          <span>
-                            {selectedCustomer.tier.charAt(0).toUpperCase() +
-                              selectedCustomer.tier.slice(1)}{" "}
-                            Member
-                          </span>
-                        </div>
-                        <div className="profile-rating">
-                          <FaStar />
-                          <span>{selectedCustomer.rating} Rating</span>
-                        </div>
+                          {selectedCustomer.status?.charAt(0).toUpperCase() +
+                            selectedCustomer.status?.slice(1)}
+                        </span>
                       </div>
-                      <span
-                        className={`status-badge ${selectedCustomer.status}`}
-                      >
-                        {selectedCustomer.status.charAt(0).toUpperCase() +
-                          selectedCustomer.status.slice(1)}
-                      </span>
                     </div>
 
                     <div className="profile-details">
@@ -668,15 +639,6 @@ const CustomersManagement = () => {
                               </span>
                             </div>
                           </div>
-                          <div className="detail-item full-width">
-                            <FaMapMarkerAlt />
-                            <div>
-                              <span className="detail-label">Address</span>
-                              <span className="detail-value">
-                                {selectedCustomer.address}
-                              </span>
-                            </div>
-                          </div>
                         </div>
                       </div>
 
@@ -696,70 +658,20 @@ const CustomersManagement = () => {
                             <FaDollarSign />
                             <div>
                               <span className="stat-number">
-                                {selectedCustomer.totalSpent.toLocaleString()} $
+                                {selectedCustomer.totalSpent?.toLocaleString()}{" "}
+                                $
                               </span>
                               <span className="stat-text">Total Spent</span>
                             </div>
                           </div>
-                          <div className="stat-box">
-                            <FaCalendar />
-                            <div>
-                              <span className="stat-number">
-                                {selectedCustomer.lastOrder
-                                  ? new Date(
-                                      selectedCustomer.lastOrder
-                                    ).toLocaleDateString("fr-FR", {
-                                      day: "2-digit",
-                                      month: "2-digit",
-                                      year: "numeric",
-                                    })
-                                  : "Aucune commande"}
-                              </span>
-                              <span className="stat-text">Last Order</span>
-                            </div>
-                          </div>
-                          <div className="stat-box">
-                            <FaHeart />
-                            <div>
-                              <span className="stat-number">
-                                {selectedCustomer.favoriteItems.length}
-                              </span>
-                              <span className="stat-text">Favorite Items</span>
-                            </div>
-                          </div>
                         </div>
                       </div>
-
-                      <div className="detail-section">
-                        <h4>Favorite Items</h4>
-                        <div className="favorite-items">
-                          {selectedCustomer.favoriteItems.map((item, index) => (
-                            <span key={index} className="favorite-tag">
-                              {item}
-                            </span>
-                          ))}
-                        </div>
-                      </div>
-
-                      {selectedCustomer.notes && (
-                        <div className="detail-section">
-                          <h4>Notes</h4>
-                          <div className="notes-box">
-                            <FaCommentDots />
-                            <p>{selectedCustomer.notes}</p>
-                          </div>
-                        </div>
-                      )}
                     </div>
 
                     <div className="profile-actions">
                       <button className="profile-action-btn primary">
                         <FaEdit />
                         Edit Customer
-                      </button>
-                      <button className="profile-action-btn secondary">
-                        <FaGift />
-                        Send Reward
                       </button>
                       <button className="profile-action-btn warning">
                         <FaBan />

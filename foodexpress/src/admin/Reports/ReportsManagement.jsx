@@ -27,6 +27,7 @@ import {
   FaClock,
   FaReply,
 } from "react-icons/fa";
+import { SquarePen } from "lucide-react";
 import "./ReportsManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -485,20 +486,26 @@ const ReportsManagement = () => {
                         </td>
                         <td>
                           <div className="table-actions">
-                            <button
-                              className="action-btn view-btn"
+                            <SquarePen
+                              size={20}
+                              className="w-5 h-5 text-gray-600 hover:text-blue-500 cursor-pointer transition-colors"
                               onClick={() => handleViewReport(report)}
                               title="View Details"
-                            >
-                              <FaEye />
-                            </button>
-                            <button
-                              className="action-btn delete-btn"
+                            />
+                            <svg
+                              stroke="currentColor"
+                              fill="currentColor"
+                              strokeWidth="0"
+                              viewBox="0 0 448 512"
+                              height="1em"
+                              width="1em"
+                              xmlns="http://www.w3.org/2000/svg"
+                              className="text-gray-600 hover:text-red-500 cursor-pointer transition-colors"
                               onClick={() => handleDeleteReport(report.id)}
                               title="Delete Report"
                             >
-                              <FaTrash />
-                            </button>
+                              <path d="M432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16zM53.2 467a48 48 0 0 0 47.9 45h245.8a48 48 0 0 0 47.9-45L416 128H32z"></path>
+                            </svg>
                           </div>
                         </td>
                       </tr>
