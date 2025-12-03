@@ -19,7 +19,7 @@ const Assigned = () => {
   const [error, setError] = useState(null);
 
   // Mock current driver data - Replace with actual auth context
-  // TODO: Get this from your authentication context
+
   const currentDriver = {
     id: 4, // IMPORTANT: Use the numeric ID from backend (currently driver_id: 4)
     name: "John Doe",
@@ -97,13 +97,14 @@ const Assigned = () => {
       console.log("Current driver ID:", currentDriver.id);
 
       // Filter deliveries: assigned to current driver AND not completed/cancelled
-      // Backend statuses: "on_delivery", "en attente", "completed", "cancelled"
+      // Backend statuses: "on_delivery", "en attente", "pending", "preparing", "completed", "cancelled"
       const driverDeliveries = deliveries.filter((delivery) => {
         const statusLower = delivery.status?.toLowerCase();
         return (
           delivery.driverId === currentDriver.id &&
           statusLower !== "completed" &&
-          statusLower !== "cancelled"
+          statusLower !== "cancelled" &&
+          statusLower !== "livré"
         );
       });
 
@@ -165,6 +166,17 @@ const Assigned = () => {
     ) {
       // Backend expects "completed" status (lowercase)
       updateDeliveryStatus(deliveryId, "completed");
+    }
+  };
+
+  const handleCancelDelivery = (deliveryId) => {
+    if (
+      window.confirm(
+        "Are you sure you want to cancel this delivery? This action cannot be undone."
+      )
+    ) {
+      // Backend expects "cancelled" status (lowercase)
+      updateDeliveryStatus(deliveryId, "cancelled");
     }
   };
 
@@ -462,23 +474,39 @@ const Assigned = () => {
 
                 <div className="order-card-footer">
                   {delivery.status?.toLowerCase() === "en attente" && (
-                    <button
-                      className="btn-primary"
-                      onClick={() => handleStartDelivery(delivery.id)}
-                    >
-                      <Navigation size={18} />
-                      Start Delivery
-                    </button>
+                    <>
+                      <button
+                        className="btn-primary"
+                        onClick={() => handleStartDelivery(delivery.id)}
+                      >
+                        <Navigation size={18} />
+                        Start Delivery
+                      </button>
+                      <button
+                        className="btn-danger"
+                        onClick={() => handleCancelDelivery(delivery.id)}
+                      >
+                        Cancel
+                      </button>
+                    </>
                   )}
                   {(delivery.status?.toLowerCase() === "on_delivery" ||
                     delivery.status?.toLowerCase() === "in transit") && (
-                    <button
-                      className="btn-success"
-                      onClick={() => handleCompleteDelivery(delivery.id)}
-                    >
-                      <CheckCircle size={18} />
-                      Mark as Completed
-                    </button>
+                    <>
+                      <button
+                        className="btn-success"
+                        onClick={() => handleCompleteDelivery(delivery.id)}
+                      >
+                        <CheckCircle size={18} />
+                        Mark as Completed
+                      </button>
+                      <button
+                        className="btn-danger"
+                        onClick={() => handleCancelDelivery(delivery.id)}
+                      >
+                        Cancel Delivery
+                      </button>
+                    </>
                   )}
                   <button
                     className="btn-secondary"
@@ -578,28 +606,48 @@ const Assigned = () => {
             </div>
             <div className="modal-footer">
               {selectedOrder.status?.toLowerCase() === "en attente" && (
-                <button
-                  className="btn-primary"
-                  onClick={() => {
-                    handleStartDelivery(selectedOrder.id);
-                    setSelectedOrder(null);
-                  }}
-                >
-                  <Navigation size={18} />
-                  Start Delivery
-                </button>
+                <>
+                  <button
+                    className="btn-primary"
+                    onClick={() => {
+                      handleStartDelivery(selectedOrder.id);
+                      setSelectedOrder(null);
+                    }}
+                  >
+                    <Navigation size={18} />
+                    Start Delivery
+                  </button>
+                  <button
+                    className="btn-danger"
+                    onClick={() => {
+                      handleCancelDelivery(selectedOrder.id);
+                    }}
+                  >
+                    Cancel Delivery
+                  </button>
+                </>
               )}
               {(selectedOrder.status?.toLowerCase() === "on_delivery" ||
                 selectedOrder.status?.toLowerCase() === "in transit") && (
-                <button
-                  className="btn-success"
-                  onClick={() => {
-                    handleCompleteDelivery(selectedOrder.id);
-                  }}
-                >
-                  <CheckCircle size={18} />
-                  Mark as Completed
-                </button>
+                <>
+                  <button
+                    className="btn-success"
+                    onClick={() => {
+                      handleCompleteDelivery(selectedOrder.id);
+                    }}
+                  >
+                    <CheckCircle size={18} />
+                    Mark as Completed
+                  </button>
+                  <button
+                    className="btn-danger"
+                    onClick={() => {
+                      handleCancelDelivery(selectedOrder.id);
+                    }}
+                  >
+                    Cancel Delivery
+                  </button>
+                </>
               )}
             </div>
           </div>

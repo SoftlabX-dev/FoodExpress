@@ -41,25 +41,34 @@ const [errors,seterrors] = useState({});
 }, []);
 
   // ----------SIGNUP---------------
-const register = async(name,email,password,password_confirmation)=> {
+  const register = async (name, email, password, password_confirmation) => {
     try {
+      seterrors({}); 
+      
       console.log("1. Récupération du cookie CSRF...");
       await ClientApi.getcsrf();
 
-            console.log("2. Register...");
-      await ClientApi.Register(name,email,password,password_confirmation);
+      console.log("2. Register...");
+      await ClientApi.Register(name, email, password, password_confirmation);
 
-      
-            console.log("3. recuperation du USER...");
-       const res = await ClientApi.GetUser();
-        setuser(res.data)
+      console.log("3. Récupération du USER...");
+      const res = await ClientApi.GetUser();
+      setuser(res.data);
       setIsLoggedIn(true);
-             console.log(response);
+
+      return { success: true }; 
+
     } catch (error) {
-        console.log(error);
+      if (error.response?.status === 422) {
+        seterrors(error.response.data.errors);
+      }
+
+      setIsLoggedIn(false);
+      return { success: false }; 
     }
-}
-  
+  };
+
+    
   // ----------LOGIN---------------
 
  const login = async(email, password)=> {
