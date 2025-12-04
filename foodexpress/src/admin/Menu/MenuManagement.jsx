@@ -16,7 +16,7 @@ import {
   FaFileAlt,
   FaBars,
 } from "react-icons/fa";
-import { SquarePen, CircleOff, BadgeCheck } from "lucide-react";
+import { SquarePen, CircleOff, BadgeCheck, Trash2 } from "lucide-react";
 import "./MenuManagement.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
 
@@ -119,15 +119,11 @@ const MenuManagement = () => {
         name: plat.nom || "N/A",
         // Correction 2: S'assurer que l'ID de la catégorie du plat est une chaîne
         category: String(plat.category_id) || "other",
-        description: plat.description || "No description",
         price: plat.prix || 0,
         image: plat.image,
         isAvailable: plat.isAvailable ?? true,
-        isPopular: plat.isPopular || false,
-        isFeatured: plat.isFeatured || false,
         rating: 4.5,
         reviews: plat.review_count || 0,
-        discount: plat.discount || 0,
         preparationTime: "15-20 min",
         calories: 0,
       })),
@@ -138,9 +134,9 @@ const MenuManagement = () => {
     // La comparaison fonctionne maintenant car selectedCategory et item.category sont des strings
     const matchesCategory =
       selectedCategory === "all" || item.category === selectedCategory;
-    const matchesSearch =
-      item.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      item.description.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesSearch = item.name
+      .toLowerCase()
+      .includes(searchTerm.toLowerCase());
     return matchesCategory && matchesSearch;
   });
 
@@ -152,11 +148,6 @@ const MenuManagement = () => {
     formData.append("nom", e.target.name.value);
     formData.append("category_id", e.target.category.value);
     formData.append("prix", e.target.price.value);
-    formData.append("description", e.target.description.value);
-    formData.append("discount", e.target.discount.value || 0);
-    formData.append("isAvailable", e.target.isAvailable.checked ? 1 : 0);
-    formData.append("isPopular", e.target.isPopular.checked ? 1 : 0);
-    formData.append("isFeatured", e.target.isFeatured.checked ? 1 : 0);
 
     // **Fichier image**
     formData.append("image", e.target.image.files[0]);
@@ -189,12 +180,7 @@ const MenuManagement = () => {
       nom: formData.get("name"),
       category_id: formData.get("category"),
       prix: parseFloat(formData.get("price")),
-      description: formData.get("description"),
-      discount: parseInt(formData.get("discount")) || 0,
       image: formData.get("image"),
-      isAvailable: formData.get("isAvailable") === "on",
-      isPopular: formData.get("isPopular") === "on",
-      isFeatured: formData.get("isFeatured") === "on",
     };
 
     try {
@@ -246,12 +232,8 @@ const MenuManagement = () => {
       nom: `${item.name} (Copy)`,
       category_id: item.category,
       prix: item.price,
-      description: item.description,
-      discount: item.discount,
       image: item.image,
       isAvailable: item.isAvailable,
-      isPopular: false,
-      isFeatured: false,
     };
 
     try {
@@ -483,6 +465,12 @@ const MenuManagement = () => {
                           title="Mark Available"
                         />
                       )}
+                      <Trash2
+                        size={20}
+                        className="w-5 h-5 text-gray-600 hover:text-red-500 cursor-pointer transition-colors"
+                        onClick={() => handleDeleteItem(item.id)}
+                        title="Delete Item"
+                      />
                     </div>
                   </div>
                 </div>

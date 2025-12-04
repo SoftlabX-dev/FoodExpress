@@ -192,6 +192,10 @@ const DeliveriesManagement = () => {
     setError(null);
 
     try {
+      console.log("=== ASSIGNING DRIVER ===");
+      console.log("Order ID:", orderId);
+      console.log("Driver ID:", driverId);
+
       const response = await ClientApi.assignToOrder({
         commande_id: orderId,
         driver_id: driverId,
@@ -206,6 +210,7 @@ const DeliveriesManagement = () => {
 
       if (resData.success) {
         const assignedDriver = drivers.find((d) => d.id === driverId);
+        console.log("Assigned driver:", assignedDriver);
 
         const updatedOrders = orders.map((o) =>
           o.id === orderId
@@ -222,7 +227,10 @@ const DeliveriesManagement = () => {
         setAssignModal(null);
         setOpenMenu(null);
 
-        alert(`Driver ${assignedDriver?.name} assigned successfully!`);
+        alert(
+          `Driver ${assignedDriver?.name} assigned successfully to order #${orderId}!`
+        );
+        console.log("=== ASSIGNMENT COMPLETE ===");
         fetchData();
       } else {
         setError(resData.message || "Failed to assign driver");

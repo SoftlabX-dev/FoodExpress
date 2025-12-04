@@ -352,7 +352,7 @@ function OrdersAdmin() {
     fetchOrders();
   };
 
-  const handleDeleteOrder = async (orderId) => {
+  const handleDeleteItem = async (orderId) => {
     if (
       !window.confirm("Êtes-vous sûr de vouloir supprimer cette commande ?")
     ) {
@@ -375,9 +375,7 @@ function OrdersAdmin() {
     return `${minutes}m`;
   };
 
-  // ============================================
-  // RENDER
-  // ============================================
+
   if (loading && orders.length === 0) {
     return <LoadingSpinner />;
   }

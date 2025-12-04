@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import "./Assigned.css";
 import { ClientApi } from "../../ClientApi/ClientApi";
+import { useAuth } from "../../context/AuthContext";
 
 const Assigned = () => {
   const [assignedOrders, setAssignedOrders] = useState([]);
@@ -17,17 +18,19 @@ const Assigned = () => {
   const [filter, setFilter] = useState("all");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { user } = useAuth();
 
-  // Mock current driver data - Replace with actual auth context
-
+  // Use the logged-in user's ID as the current driver
   const currentDriver = {
-    id: 4, // IMPORTANT: Use the numeric ID from backend (currently driver_id: 4)
-    name: "John Doe",
+    id: user?.id, // Get the driver's ID from authenticated user
+    name: user?.name || "Driver",
   };
 
   useEffect(() => {
-    loadAssignedOrders();
-  }, []);
+    if (currentDriver.id) {
+      loadAssignedOrders();
+    }
+  }, [currentDriver.id]);
 
   const mapBackendOrders = (commandes) => {
     return commandes.map((commande) => ({
@@ -85,6 +88,9 @@ const Assigned = () => {
     setLoading(true);
     setError(null);
     try {
+      console.log("=== LOADING ASSIGNED ORDERS ===");
+      console.log("Current User:", user);
+
       const response = await ClientApi.getAllDeliveries();
       console.log("API Response:", response.data);
 
@@ -92,24 +98,33 @@ const Assigned = () => {
         throw new Error("Invalid API response");
       }
 
+      // Log driver info from backend
+      if (response.data.driver_info) {
+        console.log("Driver Info from Backend:", response.data.driver_info);
+      }
+
       const deliveries = mapBackendOrders(response.data.commandes);
       console.log("Mapped deliveries:", deliveries);
-      console.log("Current driver ID:", currentDriver.id);
+      console.log("Total deliveries from backend:", deliveries.length);
 
-      // Filter deliveries: assigned to current driver AND not completed/cancelled
-      // Backend statuses: "on_delivery", "en attente", "pending", "preparing", "completed", "cancelled"
-      const driverDeliveries = deliveries.filter((delivery) => {
+      // Backend already filters by driver, so we only filter by status here
+      // Remove completed and cancelled orders from the display
+      const activeDeliveries = deliveries.filter((delivery) => {
         const statusLower = delivery.status?.toLowerCase();
-        return (
-          delivery.driverId === currentDriver.id &&
+        const isActive =
           statusLower !== "completed" &&
           statusLower !== "cancelled" &&
-          statusLower !== "livré"
+          statusLower !== "livré";
+
+        console.log(
+          `Order #${delivery.id}: status=${delivery.status}, isActive=${isActive}`
         );
+        return isActive;
       });
 
-      console.log("Filtered driver deliveries:", driverDeliveries);
-      setAssignedOrders(driverDeliveries);
+      console.log("Active driver deliveries:", activeDeliveries.length);
+      console.log("=== END LOADING ===");
+      setAssignedOrders(activeDeliveries);
     } catch (error) {
       console.error("Error loading assigned orders:", error);
       setError("Failed to load deliveries. Please try again.");
@@ -215,6 +230,27 @@ const Assigned = () => {
 
   const filteredOrders = getFilteredOrders();
 
+  // Show loading state if user is not yet loaded
+  if (!user) {
+    return (
+      <div className="assigned-container">
+        <div
+          className="loading-state"
+          style={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "100vh",
+            fontSize: "1.2rem",
+            color: "#666",
+          }}
+        >
+          Loading driver information...
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="assigned-container">
       {/* Header */}
@@ -280,24 +316,6 @@ const Assigned = () => {
                 <span className="stat-text">In Transit</span>
               </div>
             </div>
-            <div className="stat-divider"></div>
-            <div className="stat-item">
-              <div className="stat-icon pending">
-                <Clock size={18} />
-              </div>
-              <div className="stat-info">
-                <span className="stat-value">
-                  {
-                    assignedOrders.filter(
-                      (o) =>
-                        o.status?.toLowerCase() === "pending" ||
-                        o.status?.toLowerCase() === "preparing"
-                    ).length
-                  }
-                </span>
-                <span className="stat-text">Pending</span>
-              </div>
-            </div>
           </div>
         </div>
       </div>
@@ -318,52 +336,6 @@ const Assigned = () => {
           {error}
         </div>
       )}
-
-      {/* Filter Pills */}
-      <div className="filter-section">
-        <div className="filter-container">
-          <span className="filter-label">Filter:</span>
-          <div className="filter-pills">
-            <button
-              className={`filter-pill ${filter === "all" ? "active" : ""}`}
-              onClick={() => setFilter("all")}
-            >
-              <span className="pill-dot all"></span>
-              All ({assignedOrders.length})
-            </button>
-            <button
-              className={`filter-pill ${filter === "pending" ? "active" : ""}`}
-              onClick={() => setFilter("pending")}
-            >
-              <span className="pill-dot pending"></span>
-              Pending (
-              {
-                assignedOrders.filter(
-                  (o) =>
-                    o.status?.toLowerCase() === "pending" ||
-                    o.status?.toLowerCase() === "preparing"
-                ).length
-              }
-              )
-            </button>
-            <button
-              className={`filter-pill ${
-                filter === "on_delivery" ? "active" : ""
-              }`}
-              onClick={() => setFilter("on_delivery")}
-            >
-              <span className="pill-dot transit"></span>
-              On Delivery (
-              {
-                assignedOrders.filter(
-                  (o) => o.status?.toLowerCase() === "on_delivery"
-                ).length
-              }
-              )
-            </button>
-          </div>
-        </div>
-      </div>
 
       {/* Main Content */}
       <div className="assigned-content">
