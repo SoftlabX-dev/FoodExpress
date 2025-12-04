@@ -251,8 +251,8 @@ const PaymentPage = () => {
       }
     );
     console.log(respons.data);
-    // FINALISER COMMANDE
-    await completeOrder("card");
+    // FINALISER COMMANDE (status = preparing, NOT card)
+    await completeOrder("preparing");
   };
 
   // -------------------------------------------------------------

@@ -77,6 +77,21 @@ const PhoneIcon = () => (
   </svg>
 );
 
+const BanknoteIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <rect x="2" y="6" width="20" height="12" rx="2" />
+    <circle cx="12" cy="12" r="2" />
+    <path d="M6 12h.01M18 12h.01" />
+  </svg>
+);
+
 const OrdersPage = () => {
   const navigate = useNavigate();
   const { orders, setOrders } = useOrder();
@@ -101,15 +116,37 @@ const OrdersPage = () => {
     OrderHistory();
   }, []);
 
-  // Get statut badge styling
+  // Get statut badge styling - matching admin orders management
   const getstatutBadge = (statut) => {
+    const statusLower = statut?.toLowerCase() || "preparing";
     const statutClasses = {
-      Preparing: "statut-preparing",
-      "On the way": "statut-ontheway",
-      Delivered: "statut-delivered",
+      preparing: "status-preparing",
+      pending: "status-pending",
+      on_delivery: "status-ondelivery",
+      completed: "status-completed",
+      cancelled: "status-cancelled",
     };
 
-    return statutClasses[statut] || "statut-preparing";
+    return statutClasses[statusLower] || "status-preparing";
+  };
+
+  // Get display text for status - matching admin orders management
+  const getStatusText = (statut) => {
+    // Filter out payment methods that might be in status field
+    const paymentMethods = ["card", "credit", "debit", "especes", "paypal"];
+    if (paymentMethods.includes(statut?.toLowerCase())) {
+      return "Preparing"; // Default to Preparing if status is actually a payment method
+    }
+
+    const statusLower = statut?.toLowerCase() || "preparing";
+    const statusMap = {
+      preparing: "Preparing",
+      pending: "Pending",
+      on_delivery: "On Delivery",
+      completed: "Completed",
+      cancelled: "Cancelled",
+    };
+    return statusMap[statusLower] || "Preparing";
   };
 
   // Get first item image for order display
@@ -119,6 +156,18 @@ const OrdersPage = () => {
       return firstItem.image || "/src/assets/food/burgers/burger1.webp"; // fallback image
     }
     return "/src/assets/food/burgers/burger1.webp";
+  };
+
+  // Get payment method display text
+  const getPaymentText = (paymentMethod) => {
+    if (!paymentMethod) return "Cash";
+    const paymentMap = {
+      especes: "Cash",
+      credit: "Credit Card",
+      debit: "Debit Card",
+      paypal: "PayPal",
+    };
+    return paymentMap[paymentMethod.toLowerCase()] || paymentMethod;
   };
   /*[
   {
@@ -241,7 +290,7 @@ const OrdersPage = () => {
                           order.statut
                         )}`}
                       >
-                        {order.statut}
+                        {getStatusText(order.statut)}
                       </span>
                     </div>
 
@@ -257,10 +306,10 @@ const OrdersPage = () => {
                     </div>
 
                     {/* Driver Info - Only show when order is on delivery */}
-                    {(order.statut === "On the way" ||
-                      order.statut?.toLowerCase() === "on_delivery") &&
+                    {order.statut?.toLowerCase() === "on_delivery" &&
                       order.driver_info && (
                         <div className="driver-info-section">
+                          \n{" "}
                           <div className="driver-info-header">
                             <TruckIcon />
                             <span className="driver-label">Your Driver</span>
@@ -299,6 +348,15 @@ const OrdersPage = () => {
                       )}
 
                     <div className="order-footer">
+                      <div className="order-payment">
+                        <BanknoteIcon />
+                        <span className="payment-label">Payment:</span>
+                        <span className="payment-method">
+                          {getPaymentText(
+                            order.paymentMethod || order.payment_method
+                          )}
+                        </span>
+                      </div>
                       <div className="order-total">
                         <span className="total-label">Total:</span>
                         <span className="total-amount">

@@ -2,7 +2,7 @@
 import api from "../api/axios"; // Assurez-vous que axios est configuré avec withCredentials
 
 export const ClientApi = {
-  // 1️⃣ Récupération du cookie CSRF
+  // 1️ Récupération du cookie CSRF
   getcsrf: async () => {
     return await api.get("/sanctum/csrf-cookie");
   },

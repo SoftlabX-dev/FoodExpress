@@ -227,19 +227,30 @@
   flex-shrink: 0;
 }
 
+
 .status-preparing {
-  background: #fef5e7;
-  color: #d69e2e;
+  background: #fef3c7;
+  color: #92400e;
 }
 
-.status-ontheway {
-  background: #ebf8ff;
-  color: #3182ce;
+.status-pending {
+  background: #fed7aa;
+  color: #9a3412;
 }
 
-.status-delivered {
-  background: #f0fff4;
-  color: #38a169;
+.status-ondelivery {
+  background: #dbeafe;
+  color: #1e40af;
+}
+
+.status-completed {
+  background: #d1fae5;
+  color: #065f46;
+}
+
+.status-cancelled {
+  background: #fee2e2;
+  color: #991b1b;
 }
 
 .order-meta {
@@ -403,13 +414,40 @@
   justify-content: space-between;
   align-items: center;
   margin-top: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid #e2e8f0;
+}
+
+.order-payment {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #475569;
+  font-size: 0.875rem;
+}
+
+.order-payment svg {
+  color: #64748b;
+}
+
+.payment-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.payment-method {
+  color: #1e293b;
+  font-weight: 600;
+  background: #f1f5f9;
+  padding: 0.25rem 0.625rem;
+  border-radius: 6px;
+  font-size: 0.8125rem;
 }
 
 .order-total {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-left: auto;
 }
 
 .total-label {
@@ -484,11 +522,16 @@
   .order-footer {
     flex-direction: column;
     align-items: flex-start;
-    gap: 0.5rem;
+    gap: 0.75rem;
+  }
+
+  .order-payment {
+    width: 100%;
   }
 
   .order-total {
-    margin-left: 0;
+    width: 100%;
+    justify-content: space-between;
   }
 
   .driver-contact-vehicle {
