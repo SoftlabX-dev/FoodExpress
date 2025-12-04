@@ -477,7 +477,6 @@ const DriversManagement = () => {
                   <th>Status</th>
                   <th>Vehicle</th>
                   <th>Deliveries</th>
-                  <th>Rating</th>
                   <th>Actions</th>
                 </tr>
               </thead>
@@ -538,17 +537,6 @@ const DriversManagement = () => {
                         </td>
                         <td className="deliveries-count">
                           {driver.total_deliveries}
-                        </td>
-                        <td>
-                          <div className="rating-info">
-                            <FaStar className="star-icon" />
-                            <span className="rating-value">
-                              {driver.rating}
-                            </span>
-                            <span className="rating-reviews">
-                              ({driver.ratings_count})
-                            </span>
-                          </div>
                         </td>
                         <td>
                           <div className="table-actions">
@@ -637,9 +625,6 @@ const DriversManagement = () => {
                               <div className="expanded-section">
                                 <p className="section-title">📊 Performance</p>
                                 <p className="section-value">
-                                  Rating: {driver.rating} ⭐
-                                </p>
-                                <p className="section-detail">
                                   Total: {driver.total_deliveries} | Completed:{" "}
                                   {driver.completed_deliveries}
                                 </p>

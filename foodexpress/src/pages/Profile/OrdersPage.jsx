@@ -48,6 +48,35 @@ const ClockIcon = () => (
   </svg>
 );
 
+const TruckIcon = () => (
+  <svg
+    width="16"
+    height="16"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <rect x="1" y="3" width="15" height="13" />
+    <polygon points="16 8 20 8 23 11 23 16 16 16 16 8" />
+    <circle cx="5.5" cy="18.5" r="2.5" />
+    <circle cx="18.5" cy="18.5" r="2.5" />
+  </svg>
+);
+
+const PhoneIcon = () => (
+  <svg
+    width="14"
+    height="14"
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+  >
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+  </svg>
+);
+
 const OrdersPage = () => {
   const navigate = useNavigate();
   const { orders, setOrders } = useOrder();
@@ -226,6 +255,48 @@ const OrdersPage = () => {
                     <div className="order-items">
                       <p className="items-summary">{getOrderSummary(order)}</p>
                     </div>
+
+                    {/* Driver Info - Only show when order is on delivery */}
+                    {(order.statut === "On the way" ||
+                      order.statut?.toLowerCase() === "on_delivery") &&
+                      order.driver_info && (
+                        <div className="driver-info-section">
+                          <div className="driver-info-header">
+                            <TruckIcon />
+                            <span className="driver-label">Your Driver</span>
+                          </div>
+                          <div className="driver-details">
+                            <div className="driver-main-info">
+                              <div className="driver-avatar">
+                                {order.driver_info.name.charAt(0).toUpperCase()}
+                              </div>
+                              <div className="driver-name-info">
+                                <span className="driver-name">
+                                  {order.driver_info.name}
+                                </span>
+                              </div>
+                            </div>
+                            <div className="driver-contact-vehicle">
+                              <div className="driver-phone">
+                                <PhoneIcon />
+                                <a href={`tel:${order.driver_info.phone}`}>
+                                  {order.driver_info.phone}
+                                </a>
+                              </div>
+                              <div className="driver-vehicle">
+                                <span className="vehicle-type">
+                                  {order.driver_info.vehicle_type}
+                                </span>
+                                {order.driver_info.vehicle_plate && (
+                                  <span className="vehicle-plate">
+                                    • {order.driver_info.vehicle_plate}
+                                  </span>
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      )}
 
                     <div className="order-footer">
                       <div className="order-total">

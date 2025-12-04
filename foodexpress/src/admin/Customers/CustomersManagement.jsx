@@ -667,20 +667,6 @@ const CustomersManagement = () => {
                         </div>
                       </div>
                     </div>
-
-                    <div className="profile-actions">
-                      <button className="profile-action-btn primary">
-                        <FaEdit />
-                        Edit Customer
-                      </button>
-                      <button className="profile-action-btn warning">
-                        <FaBan />
-                        {selectedCustomer.status === "blocked"
-                          ? "Unblock"
-                          : "Block"}{" "}
-                        Customer
-                      </button>
-                    </div>
                   </div>
                 </div>
               </div>

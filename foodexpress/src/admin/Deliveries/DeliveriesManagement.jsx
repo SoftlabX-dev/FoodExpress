@@ -158,7 +158,6 @@ const DeliveriesManagement = () => {
           initials: driver.user.name.charAt(0) || "",
           phone: driver.user.phone || "",
           vehicle: vehicleMap[driver.vehicle_type] || driver.vehicle_type,
-          rating: driver.rating || "0.0",
           active: driver.statut === "active" && driver.available === 1,
           currentDeliveries: driver.total_deliveries || 0,
           vehiclePlate: driver.vehicle_plate || "",
@@ -731,7 +730,7 @@ const DeliveriesManagement = () => {
                           <div className="driver-item-info">
                             <p className="driver-item-name">{driver.name}</p>
                             <p className="driver-item-details">
-                              <FaTruck /> {driver.vehicle} • ⭐ {driver.rating}
+                              <FaTruck /> {driver.vehicle}
                             </p>
                             {driver.vehiclePlate && (
                               <p style={{ fontSize: "12px", color: "#666" }}>

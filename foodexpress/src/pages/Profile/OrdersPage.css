@@ -267,6 +267,137 @@
   margin: 0;
 }
 
+/* ============================================
+   DRIVER INFO SECTION
+   ============================================ */
+
+.driver-info-section {
+  margin-top: 1rem;
+  padding: 1rem;
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+  border-radius: 12px;
+  border: 1px solid #bae6fd;
+}
+
+.driver-info-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  color: #0369a1;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.driver-info-header svg {
+  width: 18px;
+  height: 18px;
+}
+
+.driver-label {
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.driver-details {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.driver-main-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.driver-avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 600;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(102, 126, 234, 0.3);
+}
+
+.driver-name-rating {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.driver-name-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.driver-name {
+  font-weight: 600;
+  color: #1e293b;
+  font-size: 1rem;
+}
+
+.driver-contact-vehicle {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding-left: 3.3rem;
+}
+
+.driver-phone {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #0369a1;
+  font-size: 0.875rem;
+}
+
+.driver-phone svg {
+  width: 14px;
+  height: 14px;
+}
+
+.driver-phone a {
+  color: #0369a1;
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+.driver-phone a:hover {
+  color: #0284c7;
+  text-decoration: underline;
+}
+
+.driver-vehicle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.vehicle-type {
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.vehicle-plate {
+  color: #64748b;
+  font-weight: 600;
+  background: white;
+  padding: 0.15rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid #cbd5e1;
+}
+
 .order-footer {
   display: flex;
   justify-content: space-between;
@@ -359,6 +490,16 @@
   .order-total {
     margin-left: 0;
   }
+
+  .driver-contact-vehicle {
+    padding-left: 0;
+  }
+
+  .driver-avatar {
+    width: 38px;
+    height: 38px;
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -403,6 +544,29 @@
 
   .items-summary {
     font-size: 0.85rem;
+  }
+
+  .driver-info-section {
+    padding: 0.85rem;
+  }
+
+  .driver-contact-vehicle {
+    padding-left: 0;
+  }
+
+  .driver-avatar {
+    width: 36px;
+    height: 36px;
+    font-size: 0.95rem;
+  }
+
+  .driver-name {
+    font-size: 0.95rem;
+  }
+
+  .driver-phone,
+  .driver-vehicle {
+    font-size: 0.8rem;
   }
 }
 
